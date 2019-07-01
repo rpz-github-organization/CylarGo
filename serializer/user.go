@@ -5,7 +5,7 @@ import "go-crud/model"
 // User 用户序列化器
 type User struct {
 	ID        uint   `form:"id" json:"id"`
-	UserName  string `form:"name" json:"user_name"`
+	UserPhone string `form:"phone" json:"user_phone"`
 	Nickname  string `form:"name" json:"nickname"`
 	Status    string `json:"status"`
 	Avatar    string `json:"avatar"`
@@ -22,7 +22,7 @@ type UserResponse struct {
 func BuildUser(user model.User) User {
 	return User{
 		ID:        user.ID,
-		UserName:  user.UserName,
+		UserPhone: user.UserPhone,
 		Nickname:  user.Nickname,
 		Status:    user.Status,
 		Avatar:    user.Avatar,

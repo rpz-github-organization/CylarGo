@@ -8,7 +8,7 @@ import (
 // UserRegisterService 管理用户注册服务
 type UserRegisterService struct {
 	Nickname        string `form:"nickname" json:"nickname" binding:"required,min=2,max=30"`
-	UserName        string `form:"user_name" json:"user_name" binding:"required,min=5,max=30"`
+	UserPhone       string `form:"user_phone" json:"user_phone" binding:"required,min=11,max=15"`
 	Password        string `form:"password" json:"password" binding:"required,min=8,max=40"`
 	PasswordConfirm string `form:"password_confirm" json:"password_confirm" binding:"required,min=8,max=40"`
 }
@@ -32,11 +32,11 @@ func (service *UserRegisterService) Valid() *serializer.Response {
 	}
 
 	count = 0
-	model.DB.Model(&model.User{}).Where("user_name = ?", service.UserName).Count(&count)
+	model.DB.Model(&model.User{}).Where("user_phone = ?", service.UserPhone).Count(&count)
 	if count > 0 {
 		return &serializer.Response{
 			Status: 40001,
-			Msg:    "用户名已经注册",
+			Msg:    "该手机号已经注册",
 		}
 	}
 
@@ -46,9 +46,9 @@ func (service *UserRegisterService) Valid() *serializer.Response {
 // Register 用户注册
 func (service *UserRegisterService) Register() (model.User, *serializer.Response) {
 	user := model.User{
-		Nickname: service.Nickname,
-		UserName: service.UserName,
-		Status:   model.Active,
+		Nickname:  service.Nickname,
+		UserPhone: service.UserPhone,
+		Status:    model.Active,
 	}
 
 	// 表单验证

@@ -20,7 +20,7 @@ func NewRouter() *gin.Engine {
 	// 路由
 	v1 := r.Group("/api/v1")
 	{
-		v1.POST("ping", api.Ping)
+		v1.GET("ping", api.Ping)
 
 		// 用户登录
 		v1.POST("user/register", api.UserRegister)
