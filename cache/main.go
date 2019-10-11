@@ -8,7 +8,7 @@ import (
 )
 
 // RedisClient Redis缓存客户端单例
-var RedisClient *redis.Client
+var _ *redis.Client
 
 // Redis 在中间件中初始化redis链接
 func Redis() {
@@ -25,5 +25,5 @@ func Redis() {
 		panic(err)
 	}
 
-	RedisClient = client
+	_ = client
 }
